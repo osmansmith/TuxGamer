@@ -31,7 +31,7 @@
       
       ?>
     </div>
-    <form class="form_reg" method="post" action="Login.php">
+    <form class="form_reg" method="post" action="inicio">
       <input class="input" name="user" type="text" placeholder="&#128100;">
       <input class="input" name="pass" type="password" placeholder="&#128273;">
       <div class="btn_form">

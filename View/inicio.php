@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="<?php echo URL?>View/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo URL?>View/css/estilo.css">
     
-    <title>Document</title>
+    <title>TuxGamer</title>
 </head>
 <body>
     <div class="container-fluid">

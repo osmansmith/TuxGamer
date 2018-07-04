@@ -32,11 +32,11 @@ if(isset($url[2])){ if($url[2] != ''){$params = $url[2];}}
               }else{
               $controller->{$method}();                    
               }                            
-          }else{ header("location:".URL."index"); 
+          }else{ header("location:".URL."inicio"); 
                }
       }else{
-       $controller->login(); 
+       $controller->inicio(); 
            }
-  }else{ header("location:".URL."index"); 
+  }else{ header("location:".URL."inicio"); 
        }
 ?>     
