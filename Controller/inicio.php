@@ -10,7 +10,12 @@
      public function inicio()
      {
       $this->view->render('inicio');
-     }      
+     } 
+     
+     public function logeado()
+     {
+      $this->view->render('logeado');
+     } 
       
 
   }
