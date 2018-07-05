@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
+-- version 4.8.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-06-2018 a las 02:21:12
--- Versión del servidor: 10.1.21-MariaDB
--- Versión de PHP: 7.1.1
+-- Tiempo de generación: 05-07-2018 a las 12:41:53
+-- Versión del servidor: 10.1.33-MariaDB
+-- Versión de PHP: 7.2.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -19,8 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `tuxgamer`
 --
-CREATE DATABASE IF NOT EXISTS `tuxgamer` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `tuxgamer`;
 
 -- --------------------------------------------------------
 
@@ -35,6 +35,13 @@ CREATE TABLE `categoria` (
   `B_Logico` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `categoria`
+--
+
+INSERT INTO `categoria` (`ID_Categoria`, `Nombre`, `ID_Comunidad`, `B_Logico`) VALUES
+(1, 'Shooter', 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -48,6 +55,13 @@ CREATE TABLE `comunidad` (
   `B_Logico` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `comunidad`
+--
+
+INSERT INTO `comunidad` (`ID_Comunidad`, `Nombre`, `Maximo_Integrantes`, `B_Logico`) VALUES
+(1, 'TuxLandia', 1500, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -59,6 +73,14 @@ CREATE TABLE `estado` (
   `Nombre` varchar(30) DEFAULT NULL,
   `B_Logico` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `estado`
+--
+
+INSERT INTO `estado` (`ID_Estado`, `Nombre`, `B_Logico`) VALUES
+(1, 'Activo', 1),
+(2, 'Pasivo', 1);
 
 -- --------------------------------------------------------
 
@@ -72,6 +94,13 @@ CREATE TABLE `genero` (
   `B_Logico` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `genero`
+--
+
+INSERT INTO `genero` (`ID_Genero`, `Nombre`, `B_Logico`) VALUES
+(324, 'Shooter', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -80,15 +109,26 @@ CREATE TABLE `genero` (
 
 CREATE TABLE `integrante` (
   `Nick` varchar(20) NOT NULL,
+  `Correo` varchar(100) DEFAULT NULL,
   `Pass` varchar(100) DEFAULT NULL,
-  `ID_Rango` int(11) NOT NULL,
-  `ID_Estado` int(11) NOT NULL,
+  `ID_Rango` int(11) DEFAULT NULL,
+  `ID_Estado` int(11) DEFAULT NULL,
   `Puntos` int(11) DEFAULT NULL,
   `V_Positivos` int(11) DEFAULT NULL,
   `V_Negativos` int(11) DEFAULT NULL,
   `B_Logico` int(11) DEFAULT NULL,
-  `ID_Comunidad` int(11) NOT NULL
+  `ID_Comunidad` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `integrante`
+--
+
+INSERT INTO `integrante` (`Nick`, `Correo`, `Pass`, `ID_Rango`, `ID_Estado`, `Puntos`, `V_Positivos`, `V_Negativos`, `B_Logico`, `ID_Comunidad`) VALUES
+('nombre', 'correo', 'pass', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+('osman', 'osman_ahumada@hotmail.com', 'osman123', NULL, 1, NULL, NULL, NULL, NULL, 1),
+('raul', 'raul@raul.com', 'raul666', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+('zepe', 'zepe@zepeda.com', 'z1p23e', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -102,6 +142,13 @@ CREATE TABLE `juego` (
   `ID_Genero` int(11) DEFAULT NULL,
   `B_Logico` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `juego`
+--
+
+INSERT INTO `juego` (`ID_Juego`, `Nombre`, `ID_Genero`, `B_Logico`) VALUES
+(300, 'Carlos duty', 324, 1);
 
 -- --------------------------------------------------------
 
@@ -286,17 +333,20 @@ ALTER TABLE `torneo_inte`
 -- AUTO_INCREMENT de la tabla `genero`
 --
 ALTER TABLE `genero`
-  MODIFY `ID_Genero` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_Genero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=325;
+
 --
 -- AUTO_INCREMENT de la tabla `juego`
 --
 ALTER TABLE `juego`
-  MODIFY `ID_Juego` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_Juego` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=301;
+
 --
 -- AUTO_INCREMENT de la tabla `torneo`
 --
 ALTER TABLE `torneo`
   MODIFY `ID_Torneo` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- Restricciones para tablas volcadas
 --
@@ -347,6 +397,7 @@ ALTER TABLE `torneo`
 ALTER TABLE `torneo_inte`
   ADD CONSTRAINT `torneo_inte_ibfk_1` FOREIGN KEY (`ID_Torneo`) REFERENCES `torneo` (`ID_Torneo`),
   ADD CONSTRAINT `torneo_inte_ibfk_2` FOREIGN KEY (`Nick`) REFERENCES `integrante` (`Nick`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
