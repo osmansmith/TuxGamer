@@ -43,7 +43,7 @@ class usuarioModel extends Model
             $search ="SELECT * FROM integrante WHERE Nick ='".$datos['usuario']."' ";                        
             $this->base->consulta($search);
             if($archivo = $this->base->extraer_registro()){
-                $jsondata['error'] = 'el usuario ya existe.';
+                $jsondata['error'] = true;
                 echo json_encode($jsondata);
               }else{
                 $sql = "INSERT INTO integrante(Nick,Correo,Pass) VALUES('".$datos['usuario']."','".$datos['correo']."','".$datos['pass']."')";

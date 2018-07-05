@@ -193,11 +193,17 @@
            success: function(data){
             $("#RegUsuario").val('');
             $("#RegContra").val('');
-            $("#RegCorreo").val(''); 
+            $("#RegCorreo").val('');
+             
               if(data.espera)
               {
                 alert('Datos ingresados, en 24 hrs recibira un mensaje al correo, para saber si es un usuario activo o si debe estar en lista de espera, saludos');
               }
+              if(data.error)
+              {
+                alert('El usuario ya existe, o usuario en espera.');
+              }
+
            }
 
         });      
