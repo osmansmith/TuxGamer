@@ -19,7 +19,7 @@
           
          $model = get_class( $this ).'Model';
           
-          $path = 'Models/'.$model.'.php';
+          $path = 'Model/'.$model.'.php';
           
               if(file_exists($path))
               {

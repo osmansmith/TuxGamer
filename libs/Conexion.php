@@ -27,7 +27,7 @@ class Conexion
 			<script language="JavaScript" type="text/javascript">
 				alert ("Falló conexión al servidor:<?php printf("%s\n", mysqli_connect_error());?>"); 
 			</script>
-			<?
+			<?php
 			exit();
 		}
 	}
@@ -51,7 +51,7 @@ class Conexion
 			<script language="JavaScript" type="text/javascript">
 				alert ("Error: <?php //printf("%s\n", mysqli_error($this->descriptor));?>"); 
 			</script>
-			<?
+			<?php
 		}
 	}
 	// -------EXTRAE LOS REGISTROS DE UNA TABLA
@@ -111,7 +111,7 @@ class Conexion
 			<script language="JavaScript" type="text/javascript">
 				//alert ("Error: <?php //printf("%s\n", mysqli_error($this->descriptor));?>"); 
 			</script>
-			<?
+			<?php
 		}
 	}
 	public function extraer_registro3(){
@@ -126,130 +126,5 @@ class Conexion
 		$cantidad= mysqli_num_rows($this->sql3);
 		return $cantidad;
 	}
-	  public function ingreso($tipo , $tabla , $datos)
-    {
-        switch ($tipo) 
-        {
-        case 'I':
-            $this->insert($tabla , $datos);
-            break;
-        case 'S':
-            $this->select($tabla);
-            break;
-        case 'U':
-             $this->update();
-            break;
-        case 'D':
-             $this->delete($tabla, $datos);
-            break;
-        }                
-    }    
-    public function insert($tabla, $datos)
-    {
-      $result= "SHOW COLUMNS FROM ".$tabla;
-      $this->consulta($result);			                          
-            while($fila = $this->extraer_registro()) 
-                 {               
-                    $campos[] = $fila['Field'];               
-                 }
-             $con = 'INSERT INTO '.$tabla.' ( ' ;
-                for($i = 0; $i<count($campos); $i++) 
-                {
-                    if($i == count($campos) - 1)
-                    {
-                       $con .= $campos[$i]; 
-                    }else{
-                       $con .= $campos[$i].' , '; 
-                    }
-                }
-             $con .= ' ) VALUES (';                
-                   if(isset($datos))
-                   {
-                      foreach($datos as $key => $value)
-                        {                 
-                          $valores[] = $value;                                  
-                        }
-                       for($f = 0;$f<count($valores);$f++)
-                          {
-                            if($f == count($valores)-1)
-                            {
-                                if(is_numeric($valores[$f]))
-                                {
-                                    $con.= "".$valores[$f].""; 
-                                }else{
-                                    $con.= "'".$valores[$f]."'";
-                                }
-
-                            }else{
-                                if(is_numeric($valores[$f])) 
-                                  {
-                                      $con.= "".$valores[$f].",";
-                                  }else{
-                                      $con.= "'".$valores[$f]."',";
-                                  } 
-                            }
-                          }
-                      $con.= ')'; 
-                      $this->consulta($con);
-                      $jsondata['tipo'] = 'user_guardado';
-			          echo json_encode($jsondata);
-                   }else{
-                      $jsondata['tipo'] = 'sin_datos';
-			          echo json_encode($jsondata);
-                   }   
-    }    
-    public function select($tabla)
-    {
-        /* $result= "SHOW COLUMNS FROM ".$tabla;
-         $this->sql = $this->my->query($result);			                          
-            while($fila = $this->sql->fetch_array(MYSQLI_ASSOC)) 
-                 {               
-                    $campos[] = $fila['Field'];               
-                 }
-         $con = "SELECT * FROM ".$tabla;
-         $this->sql =  $this->my->query($con);
-               
-            while($fila = $this->sql->fetch_array(MYSQLI_ASSOC)) 
-                 {   
-                echo '<tr>';
-                    for($i = 0; $i<count($campos);$i++)
-                    {
-                        
-                        $dat = $campos[$i];
-                        echo '<td>'.$fila["$dat"].'</td>';                        
-                            
-                    }
-                echo '<td><a id="D'.$fila[$campos[0]].'" class="btn btn-danger btn-xs" title="Eliminar"><i class="fa fa-times"></i></a>
-                          <a id="E'.$fila[$campos[0]].'" class="btn btn-warning btn-xs" title="Editar"><i class="fa fa-pencil"></i></a>
-                      </td>';          
-                echo '</tr>';
-                 }
-        
-        */
-    }
-    public function update()
-    {
-        
-    }
-    public function delete($tabla,$datos)
-    {    
-         $result= "SHOW COLUMNS FROM ".$tabla;
-         $this->consulta($result);			                          
-            while($fila = $this->extraer_registro()) 
-            {               
-                $campos[] = $fila['Field'];               
-            }                          
-         $con = 'DELETE FROM '.$tabla.' WHERE '.$campos[0].'='.$datos['id'];
-         if($this->consulta($con))
-         {
-           $jsondata['tipo'] = 'user_eliminado';
-         echo json_encode($jsondata);   
-         }else{
-             print_r($campos[0]);
-              $jsondata['tipo'] = 'fallo_con';         
-         echo json_encode($jsondata);
-         }
-        
-    }                        
+	                       
 }
-?>

@@ -1,5 +1,5 @@
 <?php
-class user_model extends Model
+class usuarioModel extends Model
 {
     public $idupdate;
     function __construct()
@@ -35,6 +35,30 @@ class user_model extends Model
             $jsondata['tipo'] = 'error';
             echo json_encode($jsondata);
         }
+    }
+    public function registrar($datos)
+    {
+     
+        try { 
+            $search ="SELECT * FROM integrante WHERE Nick ='".$datos['usuario']."' ";                        
+            $this->base->consulta($search);
+            if($archivo = $this->base->extraer_registro()){
+                $jsondata['error'] = 'el usuario ya existe.';
+                echo json_encode($jsondata);
+              }else{
+                $sql = "INSERT INTO integrante(Nick,Correo,Pass) VALUES('".$datos['usuario']."','".$datos['correo']."','".$datos['pass']."')";
+                $this->base->consulta($sql);            
+                $jsondata['espera'] = true;
+                    echo json_encode($jsondata);
+              }
+            
+           
+            }
+        catch(PDOException $e)
+            {
+            echo $sql . "<br>" . $e->getMessage();
+            }
+
     }
    
    

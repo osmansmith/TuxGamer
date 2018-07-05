@@ -10,6 +10,9 @@
     <title>TuxGamer</title>
 
     <style>
+    body,html{
+      overflow:hidden;
+    }
       .form-signin {
         width: 100%;
         max-width: 330px;
@@ -38,13 +41,7 @@
         margin-bottom: 10px;
         border-top-left-radius: 0;
         border-top-right-radius: 0;
-      }
-      /* .portada{
-        background : url('<?php echo URL?>View/img/portada2.jpg');
-        background-size: 100% 100%;
-        min-height:500px;
-        display: -ms-flexbox; display: flex; -ms-flex-align: center; align-items: center;
-      } */
+      }     
     </style>
 </head>
 <body>
@@ -87,20 +84,22 @@
         </div>
     </div>
     
-    <article class="portada">
-      
-         
+    <article class="portada">               
       <div class="container-fluid m-0 p-0">
       <img src="<?php echo URL?>View/img/portada2.jpg" class="img-fluid mx-auto d-block w-100 px-0"/>
       </div>
       <div class="container">
-         <div class="row d-flex justify-left">
-           <div class="col-6">            
-            <p class="lead text-black" style="position: absolute; bottom: 50px; left: 600px;">Loremis dolores amet quae tempora adipisci?</p>
-           </div>
-          
-         </div>
-        
+         <div class="row d-flex center">
+           <div class="col-9 col-sm-6 col-md-6 col-lg-6" style="margin-top:-35%">  
+            <div class="px-4 py-4" style="background-color: rgba(0, 0, 0, 0.5);">
+            <h2 class="h2 text-white-50 mb-4">Vence a tu rival y se el mejor.</h2>
+            <p class="h4 text-info">Se parte de una gran experiencia</p>
+            <p class="lead text-white mb-4">Compite y proclamate como el campeon indiscutible.</p>
+            <button type="button" class="btn btn-info btn-lg mr-4">Busca torneos abiertos</button>
+            <button type="button" class="btn btn-light btn-lg">Crea torneos</button>
+            </div>                      
+          </div>          
+        </div>        
       </div>
     </article>
     
@@ -146,7 +145,7 @@
         </button>
       </div>
       <div class="modal-body" style="display: -ms-flexbox; display: flex; -ms-flex-align: center; align-items: center;">
-        <form class="form-signin text-center">
+        <div class="form-signin text-center">
         <img class="mx-auto img-fluid " src="<?php echo URL?>View/img/tuxlogo.png" >  
 
         <label for="RegUsuario" class="sr-only">Usuario</label>
@@ -155,13 +154,13 @@
         <label for="RegCorreo" class="sr-only">Correo</label>
         <input type="email" id="RegCorreo" class="form-control mb-2" placeholder="Correo" required>
 
-        <label for="RegContraseña" class="sr-only">Contraseña</label>
-        <input type="password" id="RegCorreo" class="form-control" placeholder="Contraseña" required>
+        <label for="RegContra" class="sr-only">Contraseña</label>
+        <input type="password" id="RegContra" class="form-control" placeholder="Contraseña" required>
 
         
-        <button class="btn btn-lg btn-info btn-block" type="submit">Registrar</button>
+        <button class="btn btn-lg btn-info btn-block" id="RegBtn" type="submit">Registrar</button>
         
-      </form>
+      </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>        
@@ -169,8 +168,42 @@
     </div>
   </div>
 </div>
+<footer class="bg-info" style="min-height:80px;">
+<p class="text-center py-4 text-white" >TuxGamer © <?php echo date('Y');?></p>
+</footer>
     <script src="<?php echo URL?>View/js/jquery.min.js"></script>
     <script src="<?php echo URL?>View/js/popper.min.js"></script>
     <script src="<?php echo URL?>View/js/bootstrap.min.js"></script>
+    <script>
+     $("#RegBtn").click(function(){
+       var usuario = $("#RegUsuario").val();
+       var pass = $("#RegContra").val();
+       var correo = $("#RegCorreo").val();               
+        var datos = {
+        'usuario' : usuario,
+        'pass' : pass,
+        'correo' : correo
+               };
+        // alert(usuario+" "+pass+" "+correo);
+        $.ajax({
+           url : "<?php echo URL?>usuario/registro",
+           data : datos,
+           type : 'POST',
+           dataType : 'json',
+           success: function(data){
+            $("#RegUsuario").val('');
+            $("#RegContra").val('');
+            $("#RegCorreo").val(''); 
+              if(data.espera)
+              {
+                alert('Datos ingresados, en 24 hrs recibira un mensaje al correo, para saber si es un usuario activo o si debe estar en lista de espera, saludos');
+              }
+           }
+
+        });      
+
+       return false;
+     });
+    </script>
 </body>
 </html>

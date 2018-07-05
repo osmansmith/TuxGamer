@@ -21,7 +21,7 @@ class Conect{
               $this->my = new PDO($dsn, $this->usuario, $this->pass);              
               
               
-              }
+              
               // $this->my = null;
           } catch (PDOException $e) {
               print "¡Error!: " . $e->getMessage() . "<br/>";
@@ -50,9 +50,11 @@ class Conect{
   public function consulta2($query)
     {
      try{
-          $this->sql2 = $this->my->prepare($query);
-          $this->sql2->execute($datos); 
-          $this->my = null;
+      $jsondata['tipo'] = DB_HOST.''.DB_USER.''.DB_PASS.''.DB_NAME;
+      echo json_encode($jsondata); 
+          $this->sql2 = $this->my->prepare($query);          
+          $this->sql2->execute();           
+          $this->my = null;          
         }
         catch(PDOException $e){
            $jsondata['tipo'] = $e->getMessage();
