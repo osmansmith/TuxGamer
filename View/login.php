@@ -1,18 +1,4 @@
-<?php
-  // require('../control/LoginControl.php');
-  // $bandera = false;
-  // if(isset($_POST['log']))
-  // {
-  //   $user = $_POST["user"];
-  //   $pass = $_POST["pass"];
-    
-  //   $log = new login ($user,$pass);
-  //   if(!$log->iniciar())
-  //   {
-  //     $bandera = true;
-  //   }
-  // }
-?>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">

@@ -34,8 +34,8 @@ if(isset($url[2])){ if($url[2] != ''){$params = $url[2];}}
               }                            
           }else{ header("location:".URL."inicio"); 
                }
-      }else{
-       $controller->inicio(); 
+      }else{ $controller->inicio();
+                 
            }
   }else{ header("location:".URL."inicio"); 
        }
